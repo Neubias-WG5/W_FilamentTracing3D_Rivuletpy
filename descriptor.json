@@ -59,7 +59,7 @@
             "set-by-server": true
         },
         {
-            "id": "threshold",
+            "id": "threshold_value",
             "value-key": "@ID",
             "command-line-flag": "--@id",
             "name": "Threshold",
@@ -69,7 +69,7 @@
             "optional": true
         },
         {
-            "id": "quality run",
+            "id": "quality_run",
             "value-key": "@ID",
             "command-line-flag": "--@id",
             "name": "Threshold",
