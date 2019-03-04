@@ -1,5 +1,6 @@
 import numpy as np
 import imageio
+import os
 #from PIL import Image
 
 #Use a custom Bresenham 3D line algorithm
@@ -102,7 +103,7 @@ def bresenham3DLine(x1, y1, z1, x2, y2, z2):
 
 
 
-def swc_to_tiff_stack(file_name, output_path, im_size,\
+def swc_to_tiff_stack(in_file_path, output_path, im_size,\
  align=False, offset=None, depth="Y", filter=range(10)):
     #dimensionArray=swcToTiffStack(file_name,align,offset,\depth,filter)    
     #Parse the SWC format
@@ -114,9 +115,9 @@ def swc_to_tiff_stack(file_name, output_path, im_size,\
     #min_x  =dimensionArray[3]
     #min_y  =dimensionArray[4]
     #min_z  =dimensionArray[5]
-    print(file_name)
+    print(in_file_path)
     
-    x = open(file_name,'r')
+    x = open(in_file_path,'r')
     soma = None
     SWC = {}
     for line in x:
@@ -245,6 +246,7 @@ def swc_to_tiff_stack(file_name, output_path, im_size,\
     #Fill the matrix with the line pixels for a value of 255
     image_array[rr, cc, dd] = 255 #1   
     image_array = np.moveaxis(image_array,2,0)
+    file_name = in_file_path.split('/')[-1]
     imageio.volwrite(os.path.join(output_path, file_name[:-4] + '_lbl.tif'), image_array)
     #imwrite(output_path+'result_vaa3d.tif', image_array, is_2d=False
  

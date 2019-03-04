@@ -16,10 +16,16 @@ def main(argv):
         # 3. Call the image analysis workflow using the run script
         nj.job.update(progress=25, statusComment="Launching workflow...")
         
-        command = "python script.py --infld {} --outfld {} --threshold_value {} --quality_run {}".format(in_path, out_path, nj.parameters.threshold_value, nj.parameters.quality_run)
+        # UNCOMMENT THE NEXT LINE (WITH \ ) WHEN THE WORKFLOW IS ADDED TO BIAFLOWS 
+        command = "python script.py --infld {} --outfld {} \
+                   --threshold_value {} --quality_run {}".format(in_path, out_path, nj.parameters.threshold_value, nj.parameters.quality_run)
+        # Command to test the workflow before it is added to biaflows, which does 
+        #   not accept the desciptor.json parameters 
+        # command = "python script.py --infld {} --outfld {}".format(in_path, out_path)
+        
         return_code = call(command, shell=True, cwd="/app")  # waits for the subprocess to return
 
-        # CALL WORKFLOW
+        
         #shArgs = ["python ", "/app/workflow.py ", in_path, out_path]
         #return_code = call(" ".join(shArgs), shell=True, cwd="./")
         #command = "python /workflow.py" \"\"input={},output={}\"\".format(in_path, out_path)
@@ -27,18 +33,20 @@ def main(argv):
         #if return_code != 0:
         #    err_desc = "Failed to execute the Vaa3D (return code: {})".format(return_code)
         #    nj.job.update(progress=50, statusComment=err_desc)
-        #    raise ValueError(err_desc)       
-        # 4. Upload the annotation and labels to Cytomine (annotations are extracted from the mask using
+        #    raise ValueError(err_desc)
+        # 4. Upload the annotation and labels to Cytomine 
+        #    (annotations are extracted from the mask using
         # the AnnotationExporter module)
-        # upload_data(problem_cls, nj, in_images, out_path, **nj.flags, is_2d=is_2d, monitor_params={
+        # upload_data(problem_cls, nj, in_images, out_path, \
+        #             **nj.flags, is_2d=is_2d, monitor_params={
         #     "start": 60, "end": 90,
         #     "period": 0.1,
         #     "prefix": "Extracting and uploading polygons from masks"
         # })
         # # 5. Compute and upload the metrics
-        # nj.job.update(progress=80, statusComment="Computing and uploading metrics (if necessary)...")
+        # nj.job.update(progress = 80, \
+        #               statusComment = "Computing and uploading metrics (if necessary)...")
         # upload_metrics(problem_cls, nj, in_images, gt_path, out_path, tmp_path, **nj.flags)
         # nj.job.update(status=Job.TERMINATED, progress=100, statusComment="Finished.")
 if __name__ == "__main__":
     main(sys.argv[1:])
-
