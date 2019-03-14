@@ -9,7 +9,7 @@ RUN rm -r /Cytomine-python-client
 # --------------------------------------------------------------------------------------------
 # Install Neubias-W5-Utilities (annotation exporter, compute metrics, helpers,...)
 RUN git clone https://github.com/Neubias-WG5/neubiaswg5-utilities.git
-RUN cd /neubiaswg5-utilities/ && git checkout tags/v0.6.3 && pip install .
+RUN cd /neubiaswg5-utilities/ && git checkout tags/v0.6.2 && pip install .
 
 # Metric for TreTrc is DIADEM.jar so it needs java
 # Install Java
