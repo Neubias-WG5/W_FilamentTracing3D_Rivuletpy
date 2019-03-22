@@ -39,24 +39,24 @@ for neubias_input_image in in_images:
     # set input and output file path
     in_file_path = in_path + neubias_input_image
     out_file_path = out_path + neubias_input_image
-    
+
     print('---------------------------')
     print('Doing '+ in_path + neubias_input_image + \
-          ' and saving the output to ' + \
-          out_path)
+        ' and saving the output to ' + \
+        out_path)
 
     #Compute the neuron tracing with set parameters
     if quality_run is True:
-        command = "rtrace -f " + in_file_path + \
-        " -o " + out_file_path[:-4] + ".swc --threshold " + threshold_value + " --quality"
+      command = "rtrace -f " + in_file_path + \
+      " -o " + out_file_path[:-4] + ".swc --threshold " + threshold_value + " --quality"
     else:
-        command = "rtrace -f " + in_file_path + \
-        " -o " + out_file_path[:-4] + ".swc --threshold " + threshold_value
+      command = "rtrace -f " + in_file_path + \
+      " -o " + out_file_path[:-4] + ".swc --threshold " + threshold_value
 
     print("Run tracing workflow:"+command)
     return_code = call(command, shell=True, cwd="/") # waits for the subprocess to return
     print("Finished running :"+command)
-    
+
     #im_size = imgio.imread(os.path.join(out_path, filename)).shape
     im_size = imgio.volread(in_file_path).shape #Size is Depth,Height,Width
     im_size = im_size[::-1] #Invert the size order to Width,Height,Depth
@@ -65,7 +65,7 @@ for neubias_input_image in in_images:
     #Needed for some vaa3d workflow where the output path is not taken into account.
     #os.rename(out_file_path[:-4]+".tif_ini.swc", out_file_path[:-4]+ ".swc")
     print("Run:"+' swc_to_tiff_stack('+ out_file_path[:-4] + \
-          '.swc, '+ out_path +','+ str(im_size)+')')
+        '.swc, '+ out_path +','+ str(im_size)+')')
 
     # Convert the .swc tracing result to tiff stack files
     swc_to_tiff_stack(out_file_path[:-4]+ ".swc", out_path, im_size)
