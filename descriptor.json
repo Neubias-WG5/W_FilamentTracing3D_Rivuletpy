@@ -72,7 +72,7 @@
             "id": "quality_run",
             "value-key": "@ID",
             "command-line-flag": "--@id",
-            "name": "Threshold",
+            "name": "quality run",
             "description": "Reconstruct the neuron with higher quality and slightly more computing time",
             "type": "Boolean",
             "default-value": false,
