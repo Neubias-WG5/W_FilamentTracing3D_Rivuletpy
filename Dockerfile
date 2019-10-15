@@ -13,7 +13,8 @@ RUN cd /neubiaswg5-utilities/ && git checkout $(git log --tags -1 --pretty=forma
 
 # Metric for TreTrc is DIADEM.jar so it needs java
 # Install Java
-RUN apt-get update && apt-get install openjdk-8-jdk -y && apt-get clean
+RUN add-apt-repository ppa:webupd8team/java
+RUN apt-get update && apt-get install oracle-java8-installer -y && apt-get clean
 
 # Get DiademMetric.jar and JSAP-2.1.jar files to compute DIADEM metric
 RUN chmod +x /neubiaswg5-utilities/bin/*
