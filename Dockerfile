@@ -1,25 +1,27 @@
-FROM python:3.6
+FROM python:3.6.9-stretch
 
-# --------------------------------------------------------------------------------------------
-# Install Cytomine python client
-RUN git clone https://github.com/cytomine-uliege/Cytomine-python-client.git
-RUN cd /Cytomine-python-client && git checkout tags/v2.2.0 && pip install .
-RUN rm -r /Cytomine-python-client
+# ---------------------------------------------------------------------------------------------------------------------
+# Install Java, needed for Metric TreTrc using DIADEM.jar
+RUN apt-get update && apt-get install openjdk-8-jdk -y && apt-get clean
 
-# --------------------------------------------------------------------------------------------
-# Install Neubias-W5-Utilities (annotation exporter, compute metrics, helpers,...)
-RUN git clone https://github.com/Neubias-WG5/neubiaswg5-utilities.git
-RUN cd /neubiaswg5-utilities/ && git checkout $(git log --tags -1 --pretty=format:"%H") && pip install .
+# ---------------------------------------------------------------------------------------------------------------------
+# Install Cytomine python client (annotation exporter, compute metrics, helpers,...)
+RUN git clone https://github.com/cytomine-uliege/Cytomine-python-client.git && \
+    cd /Cytomine-python-client && git checkout tags/v2.3.0.poc.1 && pip install . && \
+    rm -r /Cytomine-python-client
+    
+# ---------------------------------------------------------------------------------------------------------------------
+# Install Neubias-W5-Utilities (annotation exporter, compute metrics, helpers,...)    
+# It will get DiademMetric.jar and JSAP-2.1.jar files to compute DIADEM metric
+RUN apt-get update && apt-get install libgeos-dev -y && apt-get clean
+RUN git clone https://github.com/Neubias-WG5/neubiaswg5-utilities.git && \
+    cd /neubiaswg5-utilities/ && git checkout tags/v0.7.0 && pip install .
 
-# Metric for TreTrc is DIADEM.jar so it needs java
-# Install Java
-RUN add-apt-repository ppa:webupd8team/java
-RUN apt-get update && apt-get install oracle-java8-installer -y && apt-get clean
-
-# Get DiademMetric.jar and JSAP-2.1.jar files to compute DIADEM metric
+# install utilities binaries
 RUN chmod +x /neubiaswg5-utilities/bin/*
 RUN cp /neubiaswg5-utilities/bin/* /usr/bin/
-# RUN cp /neubiaswg5-utilities/bin/DiademMetric.jar /usr/bin/ && cp /neubiaswg5-utilities/bin/JSAP-2.1.jar /usr/bin/ 
+
+# cleaning
 RUN rm -r /neubiaswg5-utilities
 
 # --------------------------------------------------------------------------------------------
