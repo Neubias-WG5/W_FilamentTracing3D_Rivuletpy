@@ -5,6 +5,8 @@ from argparse import RawTextHelpFormatter
 from subprocess import call
 import imageio as imgio
 from swc_to_tiff_stack import swc_to_tiff_stack
+from .node_sorter import swc_node_sorter
+from .node_sorter import findchildren
 
 parser = argparse.ArgumentParser(add_help=True, \
                                  description='Trace filaments in input images', \
@@ -78,8 +80,11 @@ for neubias_input_image in in_images:
     print("Run:"+' swc_to_tiff_stack('+ out_file_path[:-4] + \
         '.swc, '+ out_path +','+ str(im_size)+')')
 
+    # call node_sorter functions to order swc and saves it with the same name and path
+    swc_node_sorter(out_file_path[:-4]+".swc")
+    
     # Convert the .swc tracing result to tiff stack files
-    swc_to_tiff_stack(out_file_path[:-4]+ ".swc", out_path, im_size)
+    swc_to_tiff_stack(out_file_path[:-4]+".swc", out_path, im_size)
     print('Finished converting swc files to image stacks')
     #TODO: error handling...
 print("Done")
