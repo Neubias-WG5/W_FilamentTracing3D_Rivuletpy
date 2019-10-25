@@ -30,6 +30,15 @@ RUN pip install matplotlib cython tqdm libtiff scikit-fmm simpleITK bitarray
 RUN pip install git+https://github.com/pearu/pylibtiff.git
 RUN git clone https://github.com/RivuletStudio/rivuletpy.git
 RUN cd rivuletpy && python setup.py install && pip install .
+
+# --------------------------------------------------------------------------------------------
+# install required packages and download vaa3d
+RUN wget https://github.com/Vaa3D/release/releases/download/v3.458/Vaa3D_CentOS_64bit_v3.458.tar.gz --directory-prefix=/
+RUN tar -xvzf Vaa3D_CentOS_64bit_v3.458.tar.gz
+RUN apt-get update
+RUN apt-get install -y libqt4-svg libqt4-opengl libqt4-network libglu1-mesa
+RUN apt-get install -y curl xvfb libx11-dev libxtst-dev libxrender-dev
+
 # --------------------------------------------------------------------------------------------
 # Install scripts and models
 ADD descriptor.json /app/descriptor.json

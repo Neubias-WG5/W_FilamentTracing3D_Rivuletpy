@@ -5,8 +5,6 @@ from argparse import RawTextHelpFormatter
 from subprocess import call
 import imageio as imgio
 from swc_to_tiff_stack import swc_to_tiff_stack
-from .node_sorter import swc_node_sorter
-from .node_sorter import findchildren
 
 parser = argparse.ArgumentParser(add_help=True, \
                                  description='Trace filaments in input images', \
@@ -81,7 +79,10 @@ for neubias_input_image in in_images:
         '.swc, '+ out_path +','+ str(im_size)+')')
 
     # call node_sorter functions to order swc and saves it with the same name and path
-    swc_node_sorter(out_file_path[:-4]+".swc")
+    #swc_node_sorter(out_file_path[:-4]+".swc")
+    command = "/usr/bin/xvfb-run Vaa3D_CentOS_64bit_v3.458/vaa3d -x sort_neuron_swc -f sort_swc -i " + \
+              out_file_path[:-4]+".swc" + " -o " + out_file_path[:-4]+".swc"
+    return_code = call(command, shell=True, cwd="/")  # waits for the subprocess to return
     
     # Convert the .swc tracing result to tiff stack files
     swc_to_tiff_stack(out_file_path[:-4]+".swc", out_path, im_size)
