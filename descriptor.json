@@ -1,7 +1,7 @@
 {
     "name": "FilamentTracing3D_Rivuletpy",
     "container-image": {
-        "image": "neubiaswg5/w_filamenttracing_rivuletpy",
+        "image": "neubiaswg5/w_filamenttracing3d_rivuletpy",
         "type": "singularity"
     },
     "schema-version": "cytomine-0.1",
