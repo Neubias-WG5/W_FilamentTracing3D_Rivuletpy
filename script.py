@@ -4,6 +4,8 @@ import argparse
 from argparse import RawTextHelpFormatter
 from subprocess import call
 import imageio as imgio
+import numpy as np
+import skimage
 from swc_to_tiff_stack import swc_to_tiff_stack
 
 parser = argparse.ArgumentParser(add_help=True, \
@@ -23,7 +25,7 @@ out_path = args.outfld + '/'
 print(out_path + ' is the output file path')
 # Functional parameters UNCOMMENT THE NEXT TWO LINES AFTER ADDING THE WORKFLOW TO BIAFLOWS
 #Add a test to see if the threshold parameter value is None (Default value is zero but somehow 0 is changed to None)
-if args.threshold_value is not None:
+if args.threshold_value is None:
     threshold_value=0
 else:
     threshold_value = float(args.threshold_value) # default: 0
@@ -44,11 +46,23 @@ for neubias_input_image in in_images:
     in_file_path = in_path + neubias_input_image
     out_file_path = out_path + neubias_input_image
 
+    #file_path = neubias_input_image.filepath
+    #filename = neubias_input_image.filename
+    #out_file_path = os.path.join(out_path, filename)
+    #print('doing ' + file_path)
+    # Invert the xy axis by 180 degrees / in other words, flip the image vertically
+    print('invert the xy axis by 180 degrees for ' + in_file_path)
+    # reads image and rotates it with numpy.flip
+    img = skimage.external.tifffile.imread(in_file_path)
+    img = np.flip(img, axis=1)
+    skimage.external.tifffile.imsave(in_file_path, img)
+    print("Finished running: 180 degrees image rotation in xy axis")
+
     print('---------------------------')
     #print('Doing '+ in_path + neubias_input_image + \
     #    ' and saving the output to ' + \
     #    out_path)
-    print("Doing {}{} and saving the output to {}".format(in_path,neubias_input_image,out_path))
+    print("Doing {}{} and saving the output to {}".format(in_path, neubias_input_image, out_path))
 
     #Compute the neuron tracing with set parameters
     if quality_run is True:
