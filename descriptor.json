@@ -64,8 +64,9 @@
             "command-line-flag": "--@id",
             "name": "Threshold",
             "description": "Intensity threshold (low values are recommended by the authors)",
+            "set-by-server": false,
             "type": "Number",
-            "default-value": 0,
+            "default-value": 5,
             "optional": true
         },
         {
@@ -74,6 +75,7 @@
             "command-line-flag": "--@id",
             "name": "quality run",
             "description": "Reconstruct the neuron with higher quality and slightly more computing time",
+            "set-by-server": false,
             "type": "Boolean",
             "default-value": false,
             "optional": true
