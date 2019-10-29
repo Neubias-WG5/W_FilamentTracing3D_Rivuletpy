@@ -6,7 +6,7 @@
     },
     "schema-version": "cytomine-0.1",
     "description": "trace imaging containing tree-like filament structures with Rivuletpy (Also known as Rivulet2) filament tracing algorithm",
-    "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE",
+    "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE THRESHOLD_VALUE QUALITY_RUN",
     "inputs": [
         {
             "id": "cytomine_host",
