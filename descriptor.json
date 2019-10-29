@@ -67,7 +67,7 @@
             "set-by-server": false,
             "type": "Number",
             "default-value": 5,
-            "optional": true
+            "optional": false
         },
         {
             "id": "quality_run",
@@ -78,7 +78,7 @@
             "set-by-server": false,
             "type": "Boolean",
             "default-value": false,
-            "optional": true
+            "optional": false
         }
     ]
 }

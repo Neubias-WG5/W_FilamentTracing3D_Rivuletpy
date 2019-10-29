@@ -33,7 +33,7 @@ def main(argv):
         # 4. Upload the annotation and labels to Cytomine 
         #    (annotations are extracted from the mask using
         # the AnnotationExporter module)
-        upload_data(problem_cls, nj, in_images, out_path, **nj.flags, is_2d=is_2d, monitor_params={
+        upload_data(problem_cls, nj, in_images, out_path, **nj.flags, projection=-1, is_2d=is_2d, monitor_params={
              "start": 60, "end": 90,
              "period": 0.1,
              "prefix": "Extracting and uploading polygons from masks"
