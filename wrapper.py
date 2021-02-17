@@ -1,12 +1,12 @@
 import sys
 from subprocess import call
 from cytomine.models import Job
-from neubiaswg5 import CLASS_TRETRC
-from neubiaswg5.helpers import NeubiasJob, prepare_data, upload_data, upload_metrics
+from biaflows import CLASS_TRETRC
+from biaflows.helpers import BiaflowsJob, prepare_data, upload_data, upload_metrics
 
 def main(argv):
     # 0. Initialize Cytomine client and job
-    with NeubiasJob.from_cli(argv) as nj:
+    with BiaflowsJob.from_cli(argv) as nj:
         nj.job.update(status=Job.RUNNING, progress=0, statusComment="Initialisation...")
         problem_cls = CLASS_TRETRC
         is_2d = False
